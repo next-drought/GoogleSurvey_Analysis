@@ -6,25 +6,29 @@ interface Props {
   projects: SurveyProject[];
   activeId: string | null;
   onSelect: (id: string) => void;
+  onHome: () => void;
   onAdd: () => void;
   onDelete: (id: string) => void;
 }
 
-const Sidebar: React.FC<Props> = ({ projects, activeId, onSelect, onAdd, onDelete }) => {
+const Sidebar: React.FC<Props> = ({ projects, activeId, onSelect, onHome, onAdd, onDelete }) => {
   return (
     <aside className="w-64 bg-slate-900 text-slate-300 flex flex-col h-screen fixed left-0 top-0 z-20 shadow-2xl">
-      <div className="p-6 border-b border-slate-800 flex items-center gap-3">
-        <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white shrink-0 shadow-lg shadow-blue-500/20">
+      <div 
+        onClick={onHome}
+        className="p-6 border-b border-slate-800 flex items-center gap-3 cursor-pointer hover:bg-slate-800/50 transition-colors group"
+      >
+        <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white shrink-0 shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform">
           <i className="fa-solid fa-magnifying-glass-chart text-xs"></i>
         </div>
-        <h1 className="font-bold text-white tracking-tight truncate">Insight Library</h1>
+        <h1 className="font-bold text-white tracking-tight truncate group-hover:text-blue-400 transition-colors">Insight Library</h1>
       </div>
 
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         <div>
-          <div className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-3 px-2">Data Sources</div>
+          <div className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-3 px-2">Local Surveys</div>
           {projects.length === 0 ? (
-            <div className="px-2 py-4 text-xs text-slate-600 italic">No surveys connected</div>
+            <div className="px-2 py-4 text-xs text-slate-600 italic">No surveys uploaded</div>
           ) : (
             <div className="space-y-1">
               {projects.map((p) => (
@@ -36,7 +40,7 @@ const Sidebar: React.FC<Props> = ({ projects, activeId, onSelect, onAdd, onDelet
                   onClick={() => onSelect(p.id)}
                 >
                   <div className="flex items-center gap-3 overflow-hidden">
-                    <i className={`fa-solid ${p.source === 'local' ? 'fa-file-csv' : 'fa-link'} text-[10px] opacity-50 ${activeId === p.id ? 'opacity-100' : ''}`}></i>
+                    <i className={`fa-solid fa-file-csv text-[10px] opacity-50 ${activeId === p.id ? 'opacity-100' : ''}`}></i>
                     <span className="truncate text-sm font-medium">{p.name}</span>
                   </div>
                   <button 
@@ -57,8 +61,8 @@ const Sidebar: React.FC<Props> = ({ projects, activeId, onSelect, onAdd, onDelet
           onClick={onAdd}
           className="w-full bg-slate-800 hover:bg-slate-700 text-white py-2.5 rounded-xl flex items-center justify-center gap-2 text-xs font-bold transition-all border border-slate-700"
         >
-          <i className="fa-solid fa-plus"></i>
-          Add Data Source
+          <i className="fa-solid fa-file-import"></i>
+          Upload CSV
         </button>
       </div>
     </aside>

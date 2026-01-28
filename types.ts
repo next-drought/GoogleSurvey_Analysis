@@ -16,13 +16,12 @@ export interface AIInsight {
   type: 'positive' | 'neutral' | 'negative' | 'critical';
 }
 
-export type ProjectSource = 'link' | 'local';
+export type ProjectSource = 'local';
 
 export interface SurveyProject {
   id: string;
   name: string;
-  url?: string;
-  localContent?: string; // Stored content for local files
+  localContent?: string;
   source: ProjectSource;
   createdAt: number;
 }
