@@ -1,0 +1,5 @@
+{
+  "name": "SurveyInsight Pro Dashboard",
+  "description": "A high-performance dashboard that transforms Google Form CSV exports into interactive charts and AI-driven insights using the Gemini API.",
+  "requestFramePermissions": []
+}
